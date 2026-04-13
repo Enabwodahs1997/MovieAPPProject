@@ -9,6 +9,7 @@ export function useMovieReview() {
     const [reviews, setReviews] = useLocalStorage('movieReviews', [])
     const { movies, isLoading } = useMovies(searchTerm)
     const [showDropdown, setShowDropdown] = useState(false)
+    const [starRating, setStarRating] = useState(0)
 
     const handleSelectMovie = (movie) => {
         setSelectedMovie(movie)
@@ -22,6 +23,11 @@ export function useMovieReview() {
         setSelectedMovie(null)
     }
 
+    const handleStarRatingChange = (rating) => {
+        setStarRating(rating)
+    }
+
+
     const handleSubmitReview = (e) => {
         e.preventDefault()
         if (!selectedMovie || !reviewText.trim()) return
@@ -32,6 +38,7 @@ export function useMovieReview() {
             Poster: selectedMovie.Poster,
             Year: selectedMovie.Year,
             review: reviewText,
+            starRating: starRating,
             date: new Date().toLocaleDateString(),
         }
 
@@ -41,6 +48,7 @@ export function useMovieReview() {
         setSelectedMovie(null)
         setSearchTerm('')
         setReviewText('')
+        setStarRating(0)
         setShowDropdown(false)
     }
 
@@ -61,5 +69,7 @@ export function useMovieReview() {
         handleSearchChange,
         handleSubmitReview,
         handleDeleteReview,
+        starRating,
+        handleStarRatingChange,
     }
 }

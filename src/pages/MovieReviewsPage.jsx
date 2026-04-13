@@ -1,4 +1,5 @@
 import { useMovieReview } from '../hooks/useMovieReview'
+import { StarRating } from '../components/StarRating'
 
 export function ReviewsPage() {
     const {
@@ -9,11 +10,13 @@ export function ReviewsPage() {
         movies,
         isLoading,
         showDropdown,
+        starRating,
         setReviewText,
         handleSelectMovie,
         handleSearchChange,
         handleSubmitReview,
         handleDeleteReview,
+        handleStarRatingChange,
     } = useMovieReview()
 
     return (
@@ -96,6 +99,14 @@ export function ReviewsPage() {
                         />
                     </div>
 
+                    <div>
+                        <label className="block mb-3 font-semibold text-fuchsia-900">Star Rating</label>
+                        <StarRating 
+                            rating={starRating}
+                            onRatingChange={handleStarRatingChange}
+                        />
+                    </div>
+
                     <button 
                         type="submit"
                         disabled={!selectedMovie || !reviewText.trim()}
@@ -119,6 +130,19 @@ export function ReviewsPage() {
                                     <div className="flex-1">
                                         <h3 className="font-semibold text-fuchsia-900">{review.Title}</h3>
                                         <p className="text-xs text-fuchsia-700 mb-2">{review.Year} • {review.date}</p>
+                                        {review.starRating && (
+                                            <div className="flex items-center gap-1 mb-2">
+                                                {[1, 2, 3, 4, 5].map((star) => (
+                                                    <span 
+                                                        key={star}
+                                                        className={`text-lg ${star <= review.starRating ? 'text-yellow-400' : 'text-gray-300'}`}
+                                                    >
+                                                        ★
+                                                    </span>
+                                                ))}
+                                                <span className="text-xs text-fuchsia-700 ml-1 font-semibold">({review.starRating}/5)</span>
+                                            </div>
+                                        )}
                                         <p className="text-sm text-fuchsia-800 mb-3">{review.review}</p>
                                         <button
                                             onClick={() => handleDeleteReview(review.imdbID)}
