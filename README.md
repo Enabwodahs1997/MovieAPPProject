@@ -1,16 +1,75 @@
-# React + Vite
+# MovieAPPProject
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React-based movie application built with Vite that allows users to browse, search, view details, and manage their favorite movies.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Movie Browsing**: Browse and explore a catalog of movies
+- **Search Functionality**: Search for movies by title or keywords
+- **Movie Details**: View comprehensive details about individual movies
+- **Movie Reviews**: Read and write reviews for movies
+- **Favorites Management**: Save and manage your favorite movies with local storage persistence
+- **Responsive Design**: Mobile-friendly interface
+- **Routing**: Multi-page navigation with React Router
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React** - UI library
+- **Vite** - Modern build tool and dev server
+- **React Router** - Client-side routing
+- **CSS** - Styling
+- **ESLint** - Code quality
 
-## Expanding the ESLint configuration
+## Project Structure
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```
+src/
+├── pages/           # Page components (Home, Movies, Details, Reviews, About)
+├── components/      # Reusable UI components (MovieCard, SearchBar, etc.)
+├── hooks/          # Custom React hooks (useFavorites, useMovies, useMovieDetails, etc.)
+├── layouts/        # Layout components
+├── router/         # Route configuration
+├── App.jsx         # Main app component
+└── main.jsx        # Entry point
+```
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v14 or higher)
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/Enabwodahs1997/MovieAPPProject.git
+cd MovieAPPProject
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Start the development server:
+
+```bash
+npm run dev
+```
+
+The app will be available at `http://localhost:5173`
+
+## Available Scripts
+
+- `npm run dev` - Start development server with HMR
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
+
+## License
+
+This project is part of a school assignment.
