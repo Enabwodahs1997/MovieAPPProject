@@ -1,46 +1,20 @@
-import { useState } from 'react'
-import { useMovies } from '../hooks/useMovies'
-import { useLocalStorage } from '../hooks/useLocalStorage'
+import { useMovieReview } from '../hooks/useMovieReview'
 
 export function ReviewsPage() {
-    const [searchTerm, setSearchTerm] = useState('')
-    const [selectedMovie, setSelectedMovie] = useState(null)
-    const [reviewText, setReviewText] = useState('')
-    const [reviews, setReviews] = useLocalStorage('movieReviews', [])
-    const { movies, isLoading } = useMovies(searchTerm)
-    const [showDropdown, setShowDropdown] = useState(false)
-
-    const handleSelectMovie = (movie) => {
-        setSelectedMovie(movie)
-        setSearchTerm(movie.Title)
-        setShowDropdown(false)
-    }
-
-    const handleSubmitReview = (e) => {
-        e.preventDefault()
-        if (!selectedMovie || !reviewText.trim()) return
-
-        const newReview = {
-            imdbID: selectedMovie.imdbID,
-            Title: selectedMovie.Title,
-            Poster: selectedMovie.Poster,
-            Year: selectedMovie.Year,
-            review: reviewText,
-            date: new Date().toLocaleDateString(),
-        }
-
-        const updatedReviews = reviews.filter(r => r.imdbID !== selectedMovie.imdbID)
-        setReviews([newReview, ...updatedReviews])
-
-        setSelectedMovie(null)
-        setSearchTerm('')
-        setReviewText('')
-        setShowDropdown(false)
-    }
-
-    const handleDeleteReview = (imdbID) => {
-        setReviews(reviews.filter(r => r.imdbID !== imdbID))
-    }
+    const {
+        searchTerm,
+        selectedMovie,
+        reviewText,
+        reviews,
+        movies,
+        isLoading,
+        showDropdown,
+        setReviewText,
+        handleSelectMovie,
+        handleSearchChange,
+        handleSubmitReview,
+        handleDeleteReview,
+    } = useMovieReview()
 
     return (
         <section className="space-y-6 rounded-3xl border border-pink-200/70 bg-white/80 p-8 shadow-[0_16px_40px_rgba(232,121,249,0.15)] backdrop-blur-sm">
@@ -63,11 +37,7 @@ export function ReviewsPage() {
                             id="movieSearch" 
                             placeholder="Type a movie title..." 
                             value={searchTerm}
-                            onChange={(e) => {
-                                setSearchTerm(e.target.value)
-                                setShowDropdown(e.target.value.length > 0)
-                                setSelectedMovie(null)
-                            }}
+                            onChange={(e) => handleSearchChange(e.target.value)}
                         />
 
                         {showDropdown && searchTerm && (
